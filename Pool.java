@@ -3,8 +3,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Pool {
+    //Лист свободных подключений
     List<Connection> listFreeConnect = new ArrayList<>();
+    //Лист занятых подключений
     List<Connection> listUseConnect = new ArrayList<>();
+    //кол-во подключений
     int poolSize;
 
     public Pool(int numberCon) {
@@ -13,12 +16,12 @@ public class Pool {
         }
 
     }
-
+// Метод определяет кол-во свободных соединений
     public int numberFreeConnection() {
         poolSize =listFreeConnect.size();
         return poolSize;
     }
-
+// Метод получения соединений из пула доступных соединений
     public Connection getPoolConnection() {
         Connection newConn;
         if (poolSize == 0) {
@@ -26,12 +29,13 @@ public class Pool {
             newConn = new Conn().getConnection();
         } else {
             newConn = listFreeConnect.get(listFreeConnect.size());
-
+            listFreeConnect.remove(newConn);
         }
+        listUseConnect.add(newConn);
         return newConn;
 
     }
-
+// Метод возврата соединений в пул доступных соединений
     public void putConnection(Connection conn) {
         if (conn != null) {
             listFreeConnect.add(conn);
