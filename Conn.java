@@ -1,6 +1,7 @@
 import java.sql.Connection;
 import java.sql.DriverManager;
 
+// Класс соединение с БД
 public class Conn {
     private Connection createConnection() throws Exception {
 // Подгрузка драйвера БД Derby
