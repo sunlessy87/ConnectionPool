@@ -16,7 +16,7 @@ public class Conn {
         try {
             con = createConnection();
         } catch (Exception e) {
-            e.printStackTrace();
+            System.err.print("Connection was not created");
         }
         return con;
     }
