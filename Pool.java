@@ -14,22 +14,26 @@ public class Pool {
         for (int i = 0; i < numberCon; i++) {
             listFreeConnect.add(new Conn().getConnection());
         }
-
+    }
+    public Pool() {
+        for (int i = 0; i <10; i++) {
+            listFreeConnect.add(new Conn().getConnection());
+        }
     }
 // Метод определяет кол-во свободных соединений
     public int numberFreeConnection() {
         poolSize =listFreeConnect.size();
         return poolSize;
     }
-// Метод получения соединений из пула доступных соединений
-    public Connection getPoolConnection() {
+// Метод получения соединения из пула доступных соединений
+    public Connection getConnectionFromPoolConnection() {
         Connection newConn;
-        if (poolSize == 0) {
+        if (listFreeConnect != null) {
+            newConn = listFreeConnect.get(listFreeConnect.size()-1);
+            listFreeConnect.remove(newConn);
+        } else {
             System.out.println("No free connection");
             newConn = new Conn().getConnection();
-        } else {
-            newConn = listFreeConnect.get(listFreeConnect.size());
-            listFreeConnect.remove(newConn);
         }
         listUseConnect.add(newConn);
         return newConn;
